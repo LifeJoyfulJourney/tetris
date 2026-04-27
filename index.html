@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tetris Game</title>
+  <meta name="description" content="Play a clean browser-based Tetris game with keyboard and mobile touch controls." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <h1>Tetris</h1>
+        <p>Stack blocks, clear lines, and chase your best score.</p>
+      </div>
+      <button id="restartButton" class="secondary" type="button">Restart</button>
+    </header>
+
+    <section class="game-layout" aria-label="Tetris game">
+      <div class="board-shell">
+        <canvas id="board" width="300" height="600" aria-label="10 by 20 Tetris board"></canvas>
+        <div id="overlay" class="overlay" hidden>
+          <strong id="overlayTitle">Paused</strong>
+          <span id="overlayText">Press P to resume</span>
+        </div>
+      </div>
+
+      <aside class="sidebar" aria-label="Game stats">
+        <section class="panel">
+          <h2>Next</h2>
+          <canvas id="next" width="120" height="120" aria-label="Next piece preview"></canvas>
+        </section>
+
+        <section class="stats">
+          <div><span>Score</span><strong id="score">0</strong></div>
+          <div><span>Best</span><strong id="best">0</strong></div>
+          <div><span>Level</span><strong id="level">1</strong></div>
+          <div><span>Lines</span><strong id="lines">0</strong></div>
+        </section>
+      </aside>
+    </section>
+
+    <section class="touch-controls" aria-label="Mobile controls">
+      <button data-action="left" type="button">Left</button>
+      <button data-action="rotate" type="button">Rotate</button>
+      <button data-action="right" type="button">Right</button>
+      <button data-action="down" type="button">Down</button>
+      <button data-action="drop" type="button">Drop</button>
+      <button data-action="pause" type="button">Pause</button>
+    </section>
+  </main>
+
+  <script src="main.js" defer></script>
+</body>
+</html>
