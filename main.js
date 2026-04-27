@@ -212,8 +212,13 @@ function lockPiece() {
 function togglePause() {
   if (state.gameOver) return;
   state.paused = !state.paused;
-  if (state.paused) showOverlay("Paused", "Press P to resume");
-  else hideOverlay();
+  if (state.paused) {
+    showOverlay("Paused", "Press P to resume");
+  } else {
+    state.dropCounter = 0;
+    state.lastTime = performance.now();
+    hideOverlay();
+  }
 }
 
 function canPlay() {
