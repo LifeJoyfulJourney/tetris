@@ -1,5 +1,8 @@
 :root {
   color-scheme: dark;
+  --cell-size: 30px;
+  --board-width: calc(var(--cell-size) * 10);
+  --board-height: calc(var(--cell-size) * 20);
   --bg: #10131d;
   --panel: #181d2b;
   --panel-2: #20273a;
@@ -28,6 +31,7 @@ body {
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100svh;
   background:
     radial-gradient(circle at top left, rgba(93, 211, 255, 0.18), transparent 32rem),
     linear-gradient(135deg, #10131d 0%, #151827 48%, #0c0f18 100%);
@@ -101,8 +105,9 @@ h1 {
 
 .board-shell {
   position: relative;
-  width: min(100%, 64vh, 420px);
-  aspect-ratio: 1 / 2;
+  width: min(100%, var(--board-width), 64vh, 420px);
+  height: auto;
+  aspect-ratio: 10 / 20;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 8px;
   overflow: hidden;
@@ -218,50 +223,156 @@ h1 {
 }
 
 @media (max-width: 760px) {
-  .topbar {
+  :root {
+    --cell-size: min(5.4vw, 22px, calc((100svh - 220px) / 20));
+  }
+
+  html,
+  body {
+    height: 100%;
+    min-height: 100svh;
+    overflow: hidden;
+  }
+
+  body {
+    min-height: 100svh;
+  }
+
+  .app {
+    width: min(100vw - 12px, 520px);
+    height: 100svh;
+    min-height: 100svh;
     display: grid;
-    align-items: start;
+    grid-template-rows: auto 1fr auto;
+    gap: 6px;
+    padding: 6px 0;
+    overflow: hidden;
+  }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0;
+  }
+
+  h1 {
+    font-size: clamp(1.45rem, 8vw, 2rem);
+    line-height: 1;
+  }
+
+  .topbar p {
+    margin-top: 2px;
+    font-size: 0.78rem;
+    line-height: 1.2;
   }
 
   .secondary {
-    width: 100%;
+    width: auto;
+    min-height: 34px;
+    padding: 0 10px;
+    font-size: 0.85rem;
   }
 
   .game-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, var(--board-width)) minmax(92px, 1fr);
+    gap: 8px;
+    align-items: start;
+    justify-content: center;
+    min-height: 0;
   }
 
   .board-shell {
-    width: min(100%, 90vw, 390px);
+    width: var(--board-width);
+    max-width: 100%;
     justify-self: center;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
   }
 
   .sidebar {
-    grid-template-columns: 128px 1fr;
-    align-items: stretch;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    min-width: 0;
   }
 
   .panel {
-    padding: 12px;
+    padding: 8px;
+  }
+
+  .panel h2 {
+    margin-bottom: 6px;
+    font-size: 0.68rem;
+  }
+
+  #next {
+    width: min(100%, 88px);
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .stats div,
+  .stats div:nth-child(2n),
+  .stats div:nth-last-child(-n + 2) {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
   }
 
   .stats div {
-    padding: 12px;
+    gap: 2px;
+    padding: 7px 8px;
+  }
+
+  .stats div:last-child {
+    border-bottom: 0;
+  }
+
+  .stats span {
+    font-size: 0.63rem;
+  }
+
+  .stats strong {
+    font-size: clamp(1rem, 5vw, 1.24rem);
+  }
+
+  .touch-controls {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 6px;
+    margin-top: 0;
+  }
+
+  .touch-controls button {
+    min-height: 42px;
+    padding: 0 4px;
+    border-radius: 7px;
+    font-size: 0.76rem;
   }
 }
 
 @media (max-width: 430px) {
   .app {
-    width: min(100vw - 14px, 1080px);
-    padding-top: 10px;
+    width: min(100vw - 10px, 430px);
   }
 
-  .sidebar {
-    grid-template-columns: 1fr;
+  .topbar p {
+    display: none;
   }
 
-  #next {
-    width: 96px;
-    height: 96px;
+  .game-layout {
+    grid-template-columns: minmax(0, var(--board-width)) minmax(82px, 1fr);
+    gap: 6px;
+  }
+}
+
+@media (max-width: 360px) {
+  :root {
+    --cell-size: min(5vw, 20px, calc((100svh - 210px) / 20));
+  }
+
+  .touch-controls button {
+    font-size: 0.68rem;
   }
 }
